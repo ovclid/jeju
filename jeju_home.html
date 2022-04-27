@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:title" content="제주도 가족영행"/>
+    <meta property="og:image" content="open_image.jpg"/>
+    <meta property="og:url" content="https://cbsmba.github.io/travel/"/>
+    <meta property="og:description" content="5월 비행기타고 고고!!!"/>
+    
+    
+    <title>제주 여행</title>
+
+    <style>
+     .overlay0 {
+            width : '45px';
+            height : '25px';
+            background-color : yellow; 
+            border-radius: 5px;
+            font-size: 12px; 
+            color:red; 
+            font-weight: bold;
+            padding: 2px;
+            /* border: 1px solid blue; */
+            /* background-image: url("overlay_bg.png"); */
+        } 
+
+        .overlay3 {
+            width : '45px';
+            height : '25px';
+            background-color : rgb(154, 247, 136); 
+            border-radius: 5px;
+            font-size: 12px; 
+            color:rgb(100, 3, 3); 
+            font-weight: bold;
+            padding: 2px;
+            /* border: 1px solid blue; */
+            /* background-image: url("overlay_bg.png"); */
+        } 
+
+        .overlay1 {
+            width : '45px';
+            height : '25px';
+            background-color : rgb(255, 184, 246); 
+            border-radius: 5px;
+            font-size: 12px; 
+            color:rgb(30, 1, 68); 
+            font-weight: bold;
+            padding: 2px;
+            /* border: 1px solid blue; */
+            /* background-image: url("overlay_bg.png"); */
+        } 
+
+
+        .overlay2 {
+            width : '45px';
+            height : '25px';
+            background-color : rgb(196, 245, 196); 
+            border-radius: 5px;
+            font-size: 12px; 
+            color:rgb(81, 5, 223); 
+            font-weight: bold;
+            padding: 2px;
+            /* border: 1px solid blue; */
+            /* background-image: url("overlay_bg.png"); */
+        }
+
+        .click_text {
+            font-size: 11px;
+            text-align: center;
+            padding: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map" style="width:1000px;height:1000px;"></div>
+
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=56dd36038680e4d6f7b1cbc67b011a06"></script>
+
+    <script>
+        var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+        var mapOption = {
+            center: new kakao.maps.LatLng(33.42606507659757, 126.70793151208991), // 지도의 중심좌표(제주)
+            level: 7 // 지도의 확대 레벨
+        };
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+        var mapTypeControl = new kakao.maps.MapTypeControl();    
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+
+        // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+        //var zoomControl = new kakao.maps.ZoomControl();
+        //map.addControl(zoomControl, kakao.maps.ControlPosition.TOP);
+
+        var infowindow = new kakao.maps.InfoWindow({ zIndex: 1, removable :true });
+
+        var locs_name = ["제주공항", "어승생승마장", "고집돌우럭-점심", "함덕해수욕장", "봄그리고가을리조트", "성산풍천장어-저녁", "우도잠수함",
+                         "성산일출봉", "낙타트레킹","카트레이싱", "녹차한잔", "샤오츠-점심", "빛의벙커", "제주카약체험장", "성산갈치-저녁",
+                         "제주해양동물박물관", "비자림", "비자림길-점심", "만장굴", "김녕미로공원", "돈사돈-저녁"
+                        ];
+        
+        var locs_type = [0, 1, 1, 1, 0, 1, 1,
+                        2, 2, 2, 2, 2, 2, 2, 2,
+                        3, 3, 3, 3, 3, 3];
+
+        var locs_file_name = ["제주공항.jpg", "어승생승마장.jpg", "고집돌우럭.jpg", "함덕해수욕장.jpg", "봄그리고가을.jpg", "성산풍천장어.jpg",  "우도잠수함.jpg",
+                            "성산일출봉.jpg", "낙타트레킹.jpg", "카트레이싱.jpg", "녹차한잔.jpg", "샤오츠.jpg", "빛의벙커.jpg", "제주카약체험장.jpg", "제주성산갈치.jpg",
+                            "제주해양동물박물관.jpg", "비자림.jpg", "비자림길.jpg", "만장굴.jpg", "김녕미로공원.jpg", "돈사돈.jpg"
+                            ];                        
+        
+
+        var locs_link = ['https://blog.naver.com/love386600/222656771073' , //제주공항
+                            'https://blog.naver.com/labok0418/222702033782' , //어승생승마장
+                            'https://blog.naver.com/kimyeji901030/221983576859', //고집돌우럭
+                            'https://blog.naver.com/hhome1/222706383980', //함덕해수욕장
+
+                            'https://blog.naver.com/tvfxq0153/222711340826', //봄그리고가을리조트
+                            'https://blog.naver.com/mani4536/221402922678', //성산풍천장어
+                            'https://blog.naver.com/wetbell1/222428293639', //우도잠수함
+
+                            'https://blog.naver.com/kst0712/221738382915', //성산일출봉
+                            'https://blog.naver.com/01027997153/222293347724', //제주낙타트레킹 (제주아리랑)
+                            'https://blog.naver.com/2runnaln/222701919256', //카트레이싱
+                            'https://blog.naver.com/suk110011/222667744738', //녹차한잔_족욕체험
+                            'https://blog.naver.com/ecopic2015/222634657185', //샤오츠-점심
+                            'https://blog.naver.com/parangusl_/222593058393', //빛의벙커
+                            'https://blog.naver.com/2ski2/222629980238', //성산갈치맛집-저녁
+
+                            'https://blog.naver.com/ejin3j/222686652299', //비자림
+                            'https://blog.daum.net/cola1018/6036771', //비자림길 -점심
+
+                            'https://blog.daum.net/cola1018/6036771', //만장굴
+                            'https://blog.naver.com/jtowelcome/222711965825', //김녕미로공원
+                            'https://blog.daum.net/cola1018/6036771', //돈사돈 월정점
+
+        ]
+
+        var locs_detail_blog = ["제주공항 - 블로그", "(승마장) 어승생승마장 - 블로그", "(승마장) 고집돌우럭 - 블로그", "함덕해수욕장-블로그", "봄그리고가을리조트 - 블로그", "성산풍천장어 - 블로그","우도잠수함 - 블로그",
+                                "성산일출봉 - 블로그", "낙타트레킹-블로그", "카트레이싱-블로그", "녹차한잔-족욕체험-블로그", "샤오츠-블로그", "빛의벙커-블로그", "제주카약체험장-블로그", "성산갈치맛집-블로그",
+                                "제주해양동물박물관-블로그", "비자림-블로그", "비자림길 - 블로그", "만장굴-블로그", "김녕미로공원-블로그", "돈사돈-블로그"
+                               ];
+        
+        var locs_detail_address = ["제주시 공항로 2",                       //제주공항
+                                "제주시 1100로 2659",                        // 어승재승마장
+                                "제주시 조천읍 신북로 491-9",                   //고집돌우럭
+                                "제주시 조천읍 함덕리 1004-5",                  //함덕해수욕장 주차장
+                                "서귀포시 성산읍 해맞이해안로 2660",            //봄그리고가을리조트
+                                "서귀포시 성산읍 고성리 840-4",                 //성산풍천장어
+                                "서귀포시 성산읍 성산등용로 112-7",                //우도잠수함
+
+                                "서귀포시 성산읍 일출로 284-12",                 //성산일출봉
+                                "서귀포시 표선면 번영로 2564-21",                //제주 낙타트레킹 
+                                "서귀포시 표선면 성읍리 2045-1",                 //성읍랜드 ??? 오늘은카트레이싱>
+                                "서귀포시 표선면 중산간동로 4772",              //녹차한잔_족욕체험
+                                "서귀포시 동류암로 20",                          //샤오츠 - 점심
+                                "서귀포시 특별자치도 성산읍 고성리 2039-22",      //빛의벙커
+                                "제주시 조천읍 함덕리 207-1",                     //제주카약체험장
+                                "서귀포시 성산읍 한도로 90",                        //성산갈치맛집
+
+                                "서귀포시 성산읍 서성일로 689-21",              //제주해양동물박물관
+                                "제주시 구좌읍 비자숲길 55",                     //비자림
+                                "제주시 구좌읍 비자림로 2682",                  //비자림길
+                                "제주시 구좌읍 만장굴길 182",                   //만장굴
+                                "제주시 구좌읍 만장굴길 122",                   //김녕미로공원
+
+                                "제주시 구좌읍 한동북1길 29-3",                 //돈사돈-저녁
+
+                               ];
+
+
+        var locs_pos = [[33.4939883,126.4861415],                   // 제주공항
+                        [33.42571355053445, 126.49086027307811],    // 어승재승마장
+                        [33.5429874,126.6653645],                   //고집돌우럭
+                        [33.5427678,126.6693816],                   //함덕해수욕장-주차장
+                        [33.4741667,126.9089224],                   //봄그리고가을리조트     
+                        [33.4349921,126.9026574],                   //성산풍천장어               
+                        [33.4729576,126.9320796],                   //우도잠수함
+
+                        [33.4580552,126.9337452],                   //성산일출봉
+                        [33.3876197,126.7702981],                   //제주낙타트레킹
+
+                        [33.3985311,126.7854017],                   //카트레이싱 (성읍랜드)
+                        [33.3806692,126.785803],                    //녹차한잔_족욕체험
+                        [33.4596806,126.9272281],                    //샤오츠-점심
+
+                        [33.439859,126.8969496],                    //빛의벙커
+                        [33.5124627,126.899559],                   //제주카약체험장
+                        [33.4683875,126.9165692],                   //성산갈치맛집-저녁
+
+                        [33.4102433,126.8198226],                   //제주해양동물박물관
+                        [33.4848991,126.8078171],                   //비자림
+                        [33.5244018,126.8354998],                   //비자림길
+                        [33.5284905,126.7692923],                   //만장굴
+
+                        [33.53628418814327, 126.77216051462356],                   //김녕미로공원
+                        [33.5413413,126.8257834],                   //돈사돈 월정점
+
+
+        ];
+
+
+
+        for (var i = 0; i < locs_pos.length; i++) {
+            make_markers(i);   // 함수를 사용하지 않으면 인포창이 제대로 동작 안함 (변수 영역 문제인듯)
+            console.log(i, locs_name[i]);
+        }
+
+        function make_markers(i) {            
+            var pos = new kakao.maps.LatLng(locs_pos[i][0], locs_pos[i][1]);
+
+
+            //var imageSrc = locs_type[i]+'.png', // 마커이미지의 주소입니다    
+            //imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+            //imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+      
+            // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+            //var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: pos,
+                //image: markerImage
+            });
+
+            var des_loc = locs_name[i] + ',' + locs_pos[i][0] + ',' + locs_pos[i][1];
+            console.log(des_loc);
+
+            var content = '<div class="click_text"> <a href=' + locs_link[i] + ">" + locs_detail_blog[i] + 
+                          '</a> <br> <br> ' + '카카오내비 :'+ 
+                          '<address> <a href = https://map.kakao.com/link/to/' + des_loc + ">" + locs_detail_address[i] + '</a>' +
+                          '</address> <br> ' + 
+
+                          '<a href=' + locs_link[i] + ">" + 
+                          '<img src= "' +  locs_file_name[i] + '" ' + 'width="150" height="120"> </img> </div>' + '</a>';
+
+            console.log(content);
+            kakao.maps.event.addListener(marker, 'click', function () {
+                infowindow.setContent(content );
+                infowindow.open(map, marker);
+            });
+
+            // 커스텀 오버레이를 생성합니다
+            var customOverlay = new kakao.maps.CustomOverlay({
+                map: map,
+                position: pos,
+                content: '<div class = "overlay' + locs_type[i] + '">' + locs_name[i]  + '</div>',
+                //xAnchor: -0.08,
+                yAnchor: 3.0
+            })
+
+        }
+    </script>
+</body>
+
+</html>
