@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <meta property="og:title" content="제주도 가족여행"/>
-    <meta property="og:image" content="open_image.jpg"/>
+    <meta property="og:image" content="./img/open_image.jpg"/>
     <meta property="og:url" content="https://ovclid.github.io/jeju/"/>
     <meta property="og:description" content="5월 비행기타고 고고!!!"/>
 
@@ -25,7 +25,7 @@
     <script>
         var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
         var mapOption = {
-            center: new kakao.maps.LatLng(33.36870448563511, 126.86977022145514), // 지도의 중심좌표(제주)
+            center: new kakao.maps.LatLng(33.28259760579529, 126.90714991573026), // 지도의 중심좌표(제주)
             level: 10 // 숫자가 커지면 지도 축소
             };
         var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -72,7 +72,7 @@
                           '</address> <br> ' + 
 
                           '<a href=' + locs_link[i] + ">" + 
-                          '<img src= "' +  locs_file_name[i] + '" ' + 'width="150" height="120"> </img> </div>' + '</a>';
+                          '<img src= "' +  './img/' + locs_file_name[i] + '" ' + 'width="150" height="120"> </img> </div>' + '</a>';
 
             console.log(content);
             kakao.maps.event.addListener(marker, 'click', function () {
