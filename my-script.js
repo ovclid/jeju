@@ -126,6 +126,23 @@ function checkButton(mode){
     //mode = document.getElementById(this).getAttribute("data-order");
     console.log(mode);
     var mode = parseInt(mode);
+
+    if (mode == 0) {
+        
+        if (clickList[1] & clickList[2] & clickList[3] == 1) {
+            clickList[0] = true;
+            for (var i = 1; i < clickList.length; i++) {
+                clickList[i] = false;
+            }
+        }
+        else {
+            clickList[0] = false;
+            for (var i = 1; i < clickList.length; i++) {
+                clickList[i] = true;
+            }
+        }
+    }
+
     if (clickList[mode] == true) {
         console.log("current : ", clickList[mode]);
         hideMarkers(mode);
@@ -137,4 +154,6 @@ function checkButton(mode){
         showMarkers(mode);
         clickList[mode] = true
     }
+
+
 }
