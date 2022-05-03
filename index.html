@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+        <meta property="og:title" content="제주도 가족여행"/>
+        <meta property="og:image" content="./src/open_image.jpg"/>
+        <meta property="og:url" content="https://ovclid.github.io/jeju/"/>
+        <meta property="og:description" content="5월 비행기타고 고고!!!"/>
 
-<head>
-    
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <meta property="og:title" content="제주도 가족여행"/>
-    <meta property="og:image" content="./src/open_image.jpg"/>
-    <meta property="og:url" content="https://ovclid.github.io/jeju/"/>
-    <meta property="og:description" content="5월 비행기타고 고고!!!"/>
-
-    <title>제주 여행</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="my-script.js"></script>
-</head>
-
+        <title>제주 여행</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="my-script.js"></script>
+    </head>
 <body>
     <div id="map" style="width:1000px;height:1000px;"></div>
-
+    <div class="mapWrap">
+        <ul id="category">
+            <li id="0" onclick="checkButton(this.id)"> 
+                <span class="category_bg bank"></span>
+                전체
+            </li>       
+            <li id="1" onclick="checkButton(this.id)"> 
+                <span class="category_bg mart"></span>
+                1일차
+            </li>  
+            <li id="2" onclick="checkButton(this.id)"> 
+                <span class="category_bg pharmacy"></span>
+                2일차
+            </li>  
+            <li id="3" onclick="checkButton(this.id)"> 
+                <span class="category_bg oil"></span>
+                3일차
+            </li>  
+        </ul>
+    </div>
+ 
     <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=56dd36038680e4d6f7b1cbc67b011a06"></script>
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=56dd36038680e4d6f7b1cbc67b011a06">
+
+    </script>
 
     <script>
         var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
@@ -40,11 +59,15 @@
 
         var infowindow = new kakao.maps.InfoWindow({ zIndex: 1, removable :true });
 
-        
+        var markers = [];
+        var overlays = [];
+
         for (var i = 0; i < locs_pos.length; i++) {
             make_markers(i);   // 함수를 사용하지 않으면 인포창이 제대로 동작 안함 (변수 영역 문제인듯)
             console.log(i, locs_name[i]);
         }
+
+
 
         function make_markers(i) {            
             var pos = new kakao.maps.LatLng(locs_pos[i][0], locs_pos[i][1]);
@@ -89,7 +112,38 @@
                 yAnchor: 3.0
             })
 
+            markers.push(marker);
+            overlays.push(customOverlay)
+
         }
+
+
+        // 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+        function setMarkers(map, mode) {
+            for (var i = 0; i < markers.length; i++) {
+
+                if (mode == 0) {
+                    markers[i].setMap(map);
+                    overlays[i].setMap(map);
+                }
+                else if(locs_type[i] == mode) {
+                    markers[i].setMap(map);
+                    overlays[i].setMap(map);
+                }
+            }            
+        }
+
+        // "마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
+        function showMarkers(mode) {
+            setMarkers(map, mode)    
+        }
+
+        // "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
+        function hideMarkers(mode) {
+            setMarkers(null, mode);    
+        }
+
+
     </script>
 </body>
 
