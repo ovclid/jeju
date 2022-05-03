@@ -120,7 +120,15 @@ var locs_pos = [[33.50763941712983, 126.49098539385706],    // 제주공항
 
 ];
 
-clickList = [true, true, true, true]
+var clickList = [true, true, true, true]
+/*
+var clickList = []
+for (var i = 0; i < [...new Set(locs_type)].length; i++) {
+    clickList[i] = true
+}
+*/
+
+
 function checkButton(mode){
     console.log("button clicked!!")
     //mode = document.getElementById(this).getAttribute("data-order");
